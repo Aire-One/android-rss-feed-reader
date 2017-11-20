@@ -1,13 +1,20 @@
 package com.example.project;
 
+import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.project.ArticleFragment.OnListFragmentInteractionListener;
 import com.example.project.logics.Article;
+
+import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
@@ -17,6 +24,8 @@ import java.util.List;
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticleRecyclerViewAdapter.ViewHolder> {
+
+    private Context mContext;
 
     private final List<Article> mValues;
     private final OnListFragmentInteractionListener mListener;
@@ -28,6 +37,7 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_article, parent, false);
         return new ViewHolder(view);
@@ -61,12 +71,32 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
         public final View mView;
         public final TextView mTitle;
         public final TextView mGuid;
+        public final Button mButton;
+        public final ExpandableLayout mExpendableLayout;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mTitle = view.findViewById(R.id.title);
             mGuid = view.findViewById(R.id.guid);
+            mButton = view.findViewById(R.id.button);
+            mExpendableLayout = view.findViewById(R.id.expandable_layout);
+
+            mExpendableLayout.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+                @Override
+                public void onExpansionUpdate(float expansionFraction, int state) {
+                    mButton.setRotation(expansionFraction * 180);
+                }
+            });
+
+            mButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("expend listener", "run");
+
+                    mExpendableLayout.toggle();
+                }
+            });
         }
     }
 }

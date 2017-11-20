@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Globals dimensions -->
     <dimen name="text_margin">16dp</dimen>
+
+    <!-- fragment articles list-->
+    <dimen name="fragment_list_article_item_height">100dp</dimen>
+
 </resources>

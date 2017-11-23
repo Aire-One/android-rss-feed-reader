@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +19,6 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticleRecyclerViewAdapter.ViewHolder> {
 
     private Context mContext;
@@ -47,7 +43,6 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mTitle.setText(mValues.get(position).getmTitle());
-        holder.mGuid.setText(mValues.get(position).getmGuid());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,31 +65,39 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
         public Article mItem;
         public final View mView;
         public final TextView mTitle;
-        public final TextView mGuid;
-        public final Button mButton;
-        public final ExpandableLayout mExpendableLayout;
+        public final TextView mFeedOrigin;
+        public final TextView mAuthor;
+        public final TextView mDate;
+        public final ExpandableLayout mExpendableLayoutDescription;
+        public final ImageButton mButtonSave;
+        public final ImageButton mButtonShare;
+        public final ImageButton mButtonExpand;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mTitle = view.findViewById(R.id.title);
-            mGuid = view.findViewById(R.id.guid);
-            mButton = view.findViewById(R.id.button);
-            mExpendableLayout = view.findViewById(R.id.expandable_layout);
+            mFeedOrigin = view.findViewById(R.id.textView_feedorigin);
+            mAuthor = view.findViewById(R.id.textView_author);
+            mDate = view.findViewById(R.id.textview_date);
+            mExpendableLayoutDescription = view.findViewById(R.id.expandable_layout_description);
+            mButtonSave = view.findViewById(R.id.button_fav);
+            mButtonShare = view.findViewById(R.id.button_share);
+            mButtonExpand = view.findViewById(R.id.button_expand);
 
-            mExpendableLayout.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+            mExpendableLayoutDescription.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
                 @Override
                 public void onExpansionUpdate(float expansionFraction, int state) {
-                    mButton.setRotation(expansionFraction * 180);
+                    mButtonExpand.setRotation(expansionFraction * 180);
                 }
             });
 
-            mButton.setOnClickListener(new View.OnClickListener() {
+            mButtonExpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.d("expend listener", "run");
 
-                    mExpendableLayout.toggle();
+                    mExpendableLayoutDescription.toggle();
                 }
             });
         }

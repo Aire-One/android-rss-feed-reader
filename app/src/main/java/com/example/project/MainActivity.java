@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
 
     @Override
     public void onListFragmentInteraction(Article item) {
-        Toast.makeText(this, "touche item: " + item.getmTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "touche item: " + item.getmGuid(), Toast.LENGTH_SHORT).show();
     }
 }

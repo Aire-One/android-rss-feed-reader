@@ -2,10 +2,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="list_article_button_style" parent="@style/Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">@dimen/list_article_fragment_button_size</item>
+        <item name="android:layout_height">@dimen/list_article_fragment_button_size</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:tint">@android:color/darker_gray</item>
     </style>
 
 </resources>

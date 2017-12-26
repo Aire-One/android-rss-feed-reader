@@ -1,6 +1,7 @@
 package com.example.project.logics;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,15 @@ public class Article {
     private String mSource;
 
     public Article() {
+        this.mTitle = "Title";
+        this.mLink = "link";
+        this.mDescription = "desciption";
+        this.mAuthor = "author";
+        this.mCategories = new ArrayList<>();
+        this.mEnclosure = new Enclosure();
+        this.mGuid = "Guid";
+        this.mPubDate = new Date();
+        this.mSource = "source";
     }
 
     public Article(String mTitle, String mLink, String mDescription, String mAuthor,
@@ -37,75 +47,75 @@ public class Article {
         this.mSource = mSource;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
-        this.mTitle = mTitle;
+    public void setTitle(String Title) {
+        this.mTitle = Title;
     }
 
     public String getmLink() {
         return mLink;
     }
 
-    public void setmLink(String mLink) {
-        this.mLink = mLink;
+    public void setLink(String Link) {
+        this.mLink = Link;
     }
 
-    public String getmDescription() {
+    public String getDescription() {
         return mDescription;
     }
 
-    public void setmDescription(String mDescription) {
+    public void setDescription(String mDescription) {
         this.mDescription = mDescription;
     }
 
-    public String getmAuthor() {
+    public String getAuthor() {
         return mAuthor;
     }
 
-    public void setmAuthor(String mAuthor) {
+    public void setAuthor(String mAuthor) {
         this.mAuthor = mAuthor;
     }
 
-    public List<String> getmCategories() {
+    public List<String> getCategories() {
         return mCategories;
     }
 
-    public void setmCategories(List<String> mCategories) {
+    public void setCategories(List<String> mCategories) {
         this.mCategories = mCategories;
     }
 
-    public Enclosure getmEnclosure() {
+    public Enclosure getEnclosure() {
         return mEnclosure;
     }
 
-    public void setmEnclosure(Enclosure mEnclosure) {
+    public void setEnclosure(Enclosure mEnclosure) {
         this.mEnclosure = mEnclosure;
     }
 
-    public String getmGuid() {
+    public String getGuid() {
         return mGuid;
     }
 
-    public void setmGuid(String mGuid) {
+    public void setGuid(String mGuid) {
         this.mGuid = mGuid;
     }
 
-    public Date getmPubDate() {
+    public Date getPubDate() {
         return mPubDate;
     }
 
-    public void setmPubDate(Date mPubDate) {
+    public void setPubDate(Date mPubDate) {
         this.mPubDate = mPubDate;
     }
 
-    public String getmSource() {
+    public String getSource() {
         return mSource;
     }
 
-    public void setmSource(String mSource) {
+    public void setSource(String mSource) {
         this.mSource = mSource;
     }
 }

@@ -8,12 +8,15 @@ public class Enclosure {
     private String mMimeType;
 
     public Enclosure() {
+        mUrl = "url";
+        mLength = 0;
+        mMimeType = "null";
     }
 
-    public Enclosure(String mUrl, long mLength, String mMimeType) {
-        this.mUrl = mUrl;
-        this.mLength = mLength;
-        this.mMimeType = mMimeType;
+    public Enclosure(String url, long length, String mimeType) {
+        mUrl = url;
+        mLength = length;
+        mMimeType = mimeType;
     }
 
     @Override
@@ -28,27 +31,27 @@ public class Enclosure {
         return mMimeType != null ? mMimeType.equals(enclosure.mMimeType) : enclosure.mMimeType == null;
     }
 
-    public String getmUrl() {
+    public String getUrl() {
         return mUrl;
     }
 
-    public void setmUrl(String mUrl) {
-        this.mUrl = mUrl;
+    public void setUrl(String Url) {
+        mUrl = Url;
     }
 
-    public long getmLength() {
+    public long getLength() {
         return mLength;
     }
 
-    public void setmLength(long mLength) {
-        this.mLength = mLength;
+    public void setLength(long Length) {
+        mLength = Length;
     }
 
-    public String getmMimeType() {
+    public String getMimeType() {
         return mMimeType;
     }
 
-    public void setmMimeType(String mMimeType) {
-        this.mMimeType = mMimeType;
+    public void setMimeType(String MimeType) {
+        mMimeType = MimeType;
     }
 }

@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-rss-feed-reader.iml" filepath="$PROJECT_DIR$/android-rss-feed-reader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file:///data/Documents/school/esiee/e4/android-rss-feed-reader/app/app.iml" filepath="/data/Documents/school/esiee/e4/android-rss-feed-reader/app/app.iml" />
     </modules>
   </component>
 </project>

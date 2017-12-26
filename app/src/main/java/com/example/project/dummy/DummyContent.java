@@ -33,8 +33,8 @@ public class DummyContent {
 
     private static Article createDummyItem(int position) {
         Article a = new Article();
-        a.setmTitle("title");
-        a.setmGuid(position + "");
+        a.setTitle("title");
+        a.setGuid(position + "");
 
         return a;
     }

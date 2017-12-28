@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,6 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.project.R;
 import com.example.project.dummy.DummyContent;
+import com.example.project.internal.ArticleListSingleton;
+import com.example.project.internal.IArticleListSingletonListener;
+import com.example.project.logics.core.IRSSFeedParserListener;
 import com.example.project.logics.core.RSSFeedParser;
 import com.example.project.logics.core.RSSFeedPullerSingleton;
 import com.example.project.logics.dataTypes.Article;
@@ -32,9 +36,19 @@ public class ArticleListFragment extends Fragment {
     private Context mContext;
     private IArticleListFragmentListener.OnListFragmentInteractionListener mListener;
 
+    private RecyclerView.Adapter mAdapter;
+
+    private IArticleListSingletonListener mArticleListHook;
 
     public ArticleListFragment() {
         super();
+
+        mArticleListHook = new IArticleListSingletonListener() {
+            @Override
+            public void onUpdateList(List<Article> articles) {
+                mAdapter.notifyDataSetChanged();
+            }
+        };
     }
 
     @Override
@@ -51,19 +65,26 @@ public class ArticleListFragment extends Fragment {
         //RecyclerViewWithSeparator recyclerView = (RecyclerViewWithSeparator) view;
         //recyclerView.setAdapter(new ArticleListFragmentViewAdapter(DummyContent.ITEMS, mListener));
 
-        RecyclerView recyclerView = (RecyclerView) view;
+        final RecyclerView recyclerView = (RecyclerView) view;
 
-        /*List<Article> articles = new ArrayList<Article>();
-        for (int i=0;i<100;++i) {
-            Article a = new Article();
-            a.setTitle("#" + i);
-            articles.add(a);
-        }*/
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        if (mAdapter == null) {
+            mAdapter = new ArticleListFragmentViewAdapter(ArticleListSingleton.getInstance().getArticles(), mListener);
+        }
+        recyclerView.setAdapter(mAdapter);
 
         Request req = new StringRequest(Request.Method.GET, "https://www.xda-developers.com/feed/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                RSSFeedParser parser = new RSSFeedParser();
+                RSSFeedParser parser = new RSSFeedParser(new IRSSFeedParserListener() {
+                    @Override
+                    public void onParseFinished(List<Article> articles) {
+                        ArticleListSingleton.getInstance().addArticles(articles);
+                    }
+                });
                 parser.execute(response);
             }
         }, new Response.ErrorListener() {
@@ -75,13 +96,18 @@ public class ArticleListFragment extends Fragment {
         RSSFeedPullerSingleton.getInstance(mContext).addToRequestQueue(req);
 
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        recyclerView.setAdapter(new ArticleListFragmentViewAdapter(DummyContent.ITEMS, mListener));
+        // add a listener to ArticleListSingleton to auto update the list on changes
+        ArticleListSingleton.getInstance().addHook(mArticleListHook);
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        ArticleListSingleton.getInstance().removeHook(mArticleListHook);
+        mAdapter = null; // destroy the adapter to avoid artifacts from previous instances
+
+        super.onDestroyView();
     }
 
 

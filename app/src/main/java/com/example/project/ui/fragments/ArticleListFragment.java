@@ -75,7 +75,7 @@ public class ArticleListFragment extends Fragment {
             mAdapter = new ArticleListFragmentViewAdapter(ArticleListSingleton.getInstance().getArticles(), mListener);
         }
         recyclerView.setAdapter(mAdapter);
-
+/*
         Request req = new StringRequest(Request.Method.GET, "https://www.xda-developers.com/feed/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -94,8 +94,7 @@ public class ArticleListFragment extends Fragment {
             }
         });
         RSSFeedPullerSingleton.getInstance(mContext).addToRequestQueue(req);
-
-
+*/
         // add a listener to ArticleListSingleton to auto update the list on changes
         ArticleListSingleton.getInstance().addHook(mArticleListHook);
 

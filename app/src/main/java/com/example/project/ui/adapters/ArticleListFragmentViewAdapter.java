@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project.R;
-import com.example.project.logics.Article;
+import com.example.project.logics.dataTypes.Article;
 import com.example.project.ui.contracts.IArticleListFragmentListener;
 import com.example.project.ui.views.ArticleFragmentListItemViewHolder;
 

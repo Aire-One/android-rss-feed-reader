@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.project.R;
-import com.example.project.logics.Article;
+import com.example.project.logics.dataTypes.Article;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 

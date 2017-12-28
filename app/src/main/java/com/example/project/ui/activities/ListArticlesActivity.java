@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.project.R;
-import com.example.project.logics.Article;
+import com.example.project.logics.dataTypes.Article;
 import com.example.project.ui.contracts.IArticleListFragmentListener;
 
 public class ListArticlesActivity extends AppCompatActivity implements IArticleListFragmentListener.OnListFragmentInteractionListener {

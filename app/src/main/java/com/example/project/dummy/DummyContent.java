@@ -1,11 +1,9 @@
 package com.example.project.dummy;
 
-import com.example.project.logics.Article;
+import com.example.project.logics.dataTypes.Article;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -18,7 +16,7 @@ public class DummyContent {
      */
     public static final List<Article> ITEMS = new ArrayList<Article>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 3;
 
     static {
         // Add some sample items.

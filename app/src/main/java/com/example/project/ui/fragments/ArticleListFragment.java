@@ -1,21 +1,28 @@
 package com.example.project.ui.fragments;
 
+import android.app.DownloadManager;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.project.R;
 import com.example.project.dummy.DummyContent;
-import com.example.project.logics.Article;
+import com.example.project.logics.core.RSSFeedParser;
+import com.example.project.logics.core.RSSFeedPullerSingleton;
+import com.example.project.logics.dataTypes.Article;
 import com.example.project.ui.adapters.ArticleListFragmentViewAdapter;
 import com.example.project.ui.contracts.IArticleListFragmentListener;
-import com.example.project.ui.views.RecyclerViewWithSeparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +53,33 @@ public class ArticleListFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view;
 
-        List<Article> articles = new ArrayList<Article>();
+        /*List<Article> articles = new ArrayList<Article>();
         for (int i=0;i<100;++i) {
             Article a = new Article();
             a.setTitle("#" + i);
             articles.add(a);
-        }
+        }*/
+
+        Request req = new StringRequest(Request.Method.GET, "https://www.xda-developers.com/feed/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                RSSFeedParser parser = new RSSFeedParser();
+                parser.execute(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("request", error.getLocalizedMessage());
+            }
+        });
+        RSSFeedPullerSingleton.getInstance(mContext).addToRequestQueue(req);
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        recyclerView.setAdapter(new ArticleListFragmentViewAdapter(articles, mListener));
+        recyclerView.setAdapter(new ArticleListFragmentViewAdapter(DummyContent.ITEMS, mListener));
 
         return view;
     }

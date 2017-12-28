@@ -1,4 +1,4 @@
-package com.example.project.logics;
+package com.example.project.logics.dataTypes;
 
 
 public class Enclosure {

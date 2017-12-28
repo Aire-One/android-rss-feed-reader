@@ -1,6 +1,6 @@
 package com.example.project.ui.contracts;
 
-import com.example.project.logics.Article;
+import com.example.project.logics.dataTypes.Article;
 
 public class IArticleListFragmentListener {
 

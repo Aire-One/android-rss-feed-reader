@@ -30,4 +30,8 @@
     <string name="dialog_addfeedsource_negatifbutton">Cancel</string>
     <string name="dialog_addfeedsource_hint_textedit">Feed URL</string>
 
+    <!-- Share -->
+    <string name="share_chooser_text">Send a link of this Article</string>
+    <string name="share_base_text">Here is an Article I find using RSS Feed Reader :</string>
+
 </resources>

@@ -20,7 +20,6 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
 
     public Article mItem;
 
-    // Member's Views (public cauz final FTW)
     public final View mView;
     public final TextView mTextViewTitle;
     public final TextView mTextViewFeedOrigin;
@@ -31,6 +30,8 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
     public final ImageButton mButtonSave;
     public final ImageButton mButtonShare;
     public final ImageButton mButtonExpand;
+
+    private boolean mIsExtended;
 
     public ArticleFragmentListItemViewHolder(View view) {
         super(view);
@@ -45,6 +46,8 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
         mButtonSave = view.findViewById(R.id.button_fav);
         mButtonShare = view.findViewById(R.id.button_share);
         mButtonExpand = view.findViewById(R.id.button_expand);
+
+        mIsExtended = false;
 
         mExpendableLayoutDescription.setOnExpansionUpdateListener(new ExpendableListener());
 
@@ -65,7 +68,7 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
         mTextViewFeedOrigin.setText(getHost(mItem.getmLink()));
         mTextViewAuthor.setText(mItem.getAuthor());
         mTextViewDate.setText(getDate(mItem.getPubDate()));
-        mExpendableLayoutDescription.collapse(false);
+        mExpendableLayoutDescription.setExpanded(mIsExtended, false);
         mTextViewDescription.setText(mItem.getDescription());
     }
 
@@ -88,6 +91,7 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
         @Override
         public void onExpansionUpdate(float expansionFraction, int state) {
             mButtonExpand.setRotation(expansionFraction * 180);
+            //mIsExtended = expansionFraction > 0.5f;
         }
     }
 

@@ -92,6 +92,20 @@ public class ListArticlesActivity extends AppCompatActivity implements IArticleL
     }
 
     @Override
+    public void onShareButtonClicked(Article item) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.share_base_text) + " " + item.getmLink());
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share_chooser_text)));
+    }
+
+    @Override
+    public void onFavButtonCliecked(Article item) {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_list_articles_menu, menu);
         return true;

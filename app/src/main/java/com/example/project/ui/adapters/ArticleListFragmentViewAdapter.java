@@ -44,9 +44,25 @@ public class ArticleListFragmentViewAdapter extends RecyclerView.Adapter<Article
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (null != mListener) {
-                mListener.onClick(mValues.get(position));
+                if (mListener != null) {
+                    mListener.onClick(mValues.get(position));
+                }
             }
+        });
+        holder.mButtonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onShareButtonClicked(mValues.get(position));
+                }
+            }
+        });
+        holder.mButtonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onFavButtonCliecked(mValues.get(position));
+                }
             }
         });
     }

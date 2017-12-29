@@ -37,6 +37,7 @@ public class XMLParserArticle {
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if (eventType == XmlPullParser.START_TAG) {
                 // toUpperCase() to match regardless the case
+                // multiple cases aims to handle rss tags versions
                 switch (parser.getName().toUpperCase()) {
                     case "ITEM":
                         insideItem = true;
@@ -48,7 +49,7 @@ public class XMLParserArticle {
                         break;
                     case "LINK":
                         if (insideItem) {
-                            currentArticle.setTitle(safeNextText(parser));
+                            currentArticle.setLink(safeNextText(parser));
                         }
                         break;
                     case "DESCRIPTION":
@@ -56,6 +57,7 @@ public class XMLParserArticle {
                             currentArticle.setDescription(safeNextText(parser));
                         }
                         break;
+                    case "DC:CREATOR":
                     case "AUTHOR":
                         if (insideItem) {
                             currentArticle.setAuthor(safeNextText(parser));
@@ -66,6 +68,7 @@ public class XMLParserArticle {
                             currentArticle.getCategories().add(safeNextText(parser));
                         }
                         break;
+                    case "CONTENT:ENCODED":
                     case "ENCLOSURE":
                         ///TODO
                         break;

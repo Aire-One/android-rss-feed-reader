@@ -11,6 +11,11 @@ import com.example.project.logics.dataTypes.Article;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
 
     public Article mItem;
@@ -22,6 +27,7 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
     public final TextView mTextViewAuthor;
     public final TextView mTextViewDate;
     public final ExpandableLayout mExpendableLayoutDescription;
+    public final TextView mTextViewDescription;
     public final ImageButton mButtonSave;
     public final ImageButton mButtonShare;
     public final ImageButton mButtonExpand;
@@ -35,6 +41,7 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
         mTextViewAuthor = view.findViewById(R.id.textView_author);
         mTextViewDate = view.findViewById(R.id.textview_date);
         mExpendableLayoutDescription = view.findViewById(R.id.expandable_layout_description);
+        mTextViewDescription = view.findViewById(R.id.textView_description);
         mButtonSave = view.findViewById(R.id.button_fav);
         mButtonShare = view.findViewById(R.id.button_share);
         mButtonExpand = view.findViewById(R.id.button_expand);
@@ -55,10 +62,26 @@ public class ArticleFragmentListItemViewHolder extends RecyclerView.ViewHolder {
         mItem = article;
 
         mTextViewTitle.setText(mItem.getTitle());
-        mTextViewFeedOrigin.setText(mItem.getSource());
+        mTextViewFeedOrigin.setText(getHost(mItem.getmLink()));
         mTextViewAuthor.setText(mItem.getAuthor());
-        mTextViewDate.setText(mItem.getPubDate().toString());
+        mTextViewDate.setText(getDate(mItem.getPubDate()));
         mExpendableLayoutDescription.collapse(false);
+        mTextViewDescription.setText(mItem.getDescription());
+    }
+
+    protected String getHost(String url) {
+        try {
+            URL u = new URL(url);
+            return u.getHost();
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    protected String getDate(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
     protected class ExpendableListener implements ExpandableLayout.OnExpansionUpdateListener {

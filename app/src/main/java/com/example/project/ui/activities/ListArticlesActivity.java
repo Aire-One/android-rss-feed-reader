@@ -2,6 +2,8 @@ package com.example.project.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -82,8 +84,11 @@ public class ListArticlesActivity extends AppCompatActivity implements IArticleL
 
     @Override
     public void onClick(Article item) {
-        Toast.makeText(this, "click " + item.getTitle(), Toast.LENGTH_SHORT).show();
-        ///TODO : load article webview
+        // Chrome custom tabs from official documentation :
+        // https://developer.chrome.com/multidevice/android/customtabs
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(item.getmLink()));
     }
 
     @Override

@@ -43,27 +43,27 @@ public class XMLParserArticle {
                         break;
                     case "TITLE":
                         if (insideItem) {
-                            currentArticle.setTitle(parser.nextText());
+                            currentArticle.setTitle(safeNextText(parser));
                         }
                         break;
                     case "LINK":
                         if (insideItem) {
-                            currentArticle.setTitle(parser.nextText());
+                            currentArticle.setTitle(safeNextText(parser));
                         }
                         break;
                     case "DESCRIPTION":
                         if (insideItem) {
-                            currentArticle.setDescription(parser.nextText());
+                            currentArticle.setDescription(safeNextText(parser));
                         }
                         break;
                     case "AUTHOR":
                         if (insideItem) {
-                            currentArticle.setAuthor(parser.nextText());
+                            currentArticle.setAuthor(safeNextText(parser));
                         }
                         break;
                     case "CATEGORY":
                         if (insideItem) {
-                            currentArticle.getCategories().add(parser.nextText());
+                            currentArticle.getCategories().add(safeNextText(parser));
                         }
                         break;
                     case "ENCLOSURE":
@@ -71,17 +71,17 @@ public class XMLParserArticle {
                         break;
                     case "GUID":
                         if (insideItem) {
-                            currentArticle.setGuid(parser.nextText());
+                            currentArticle.setGuid(safeNextText(parser));
                         }
                         break;
                     case "PUBDATE":
                         if (insideItem) {
-                            currentArticle.setPubDate(new Date(parser.nextText()));
+                            currentArticle.setPubDate(new Date(safeNextText(parser)));
                         }
                         break;
                     case "SOURCE":
                         if (insideItem) {
-                            currentArticle.setSource(parser.nextText());
+                            currentArticle.setSource(safeNextText(parser));
                         }
                         break;
                 }
@@ -96,6 +96,15 @@ public class XMLParserArticle {
         }
 
         mListener.onParsingFinished(articles);
+    }
+
+    // https://android-developers.googleblog.com/2011/12/watch-out-for-xmlpullparsernexttext.html
+    private static String safeNextText(XmlPullParser parser) throws XmlPullParserException, IOException {
+        String result = parser.nextText();
+        while (parser.getEventType() != XmlPullParser.END_TAG) {
+            parser.nextTag();
+        }
+        return result;
     }
 
     public interface IParserListener {

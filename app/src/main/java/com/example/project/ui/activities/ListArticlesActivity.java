@@ -63,7 +63,7 @@ public class ListArticlesActivity extends AppCompatActivity implements IArticleL
         FeedSourceSingleton feeds = FeedSourceSingleton.getInstance(this);
         feeds.clearFeeds();
         feeds.addFeed("https://www.xda-developers.com/feed/");
-        feeds.addFeed("https://www.blog.google/rss/");
+        feeds.addFeed("https://www.archlinux.org/feeds/news/");
 
         Log.d("Feeds", "size: " + feeds.getFeeds().size()
                 + " ; contents: " + feeds.getFeeds().toString());

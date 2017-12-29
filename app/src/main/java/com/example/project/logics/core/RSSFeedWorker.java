@@ -15,6 +15,13 @@ import com.example.project.logics.dataTypes.Article;
 import java.util.List;
 
 public class RSSFeedWorker extends AsyncTask<Context, Void, Void> {
+
+    private IRSSFeedWorkerListener mListener;
+
+    public RSSFeedWorker(IRSSFeedWorkerListener listener) {
+        mListener = listener;
+    }
+
     @Override
     protected Void doInBackground(Context... contexts) {
         // Assuming the first arg is the current context to work on
@@ -45,5 +52,15 @@ public class RSSFeedWorker extends AsyncTask<Context, Void, Void> {
         }
 
         return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... progress) {
+        /// TODO: notify progress to caller
+    }
+
+    @Override
+    protected void onPostExecute(Void result) {
+        mListener.onWorkFinished();
     }
 }

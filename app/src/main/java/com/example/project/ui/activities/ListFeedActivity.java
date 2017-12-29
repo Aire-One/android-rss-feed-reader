@@ -25,9 +25,9 @@ import com.example.project.ui.dialog.AddFeedSourceDialog;
 
 public class ListFeedActivity extends AppCompatActivity {
 
-    public final static String DIALOG_ADD_FEED_SOURCE_TAG = "LIST_FEED_ACTICITY_DIALOG_ADD_FEED";
+    public final static String DIALOG_ADD_FEED_SOURCE_TAG = "LIST_FEED_ACTIVITY_DIALOG_ADD_FEED";
 
-    private final FeedSourceSingleton feeds = FeedSourceSingleton.getInstance(this);
+    private final FeedSourceSingleton FEEDS = FeedSourceSingleton.getInstance(this);
 
     private Toolbar mToolbar;
 
@@ -63,7 +63,7 @@ public class ListFeedActivity extends AppCompatActivity {
 
                     @Override
                     public void onPositiveClick(String newFeed) {
-                        feeds.addFeed(newFeed);
+                        FEEDS.addFeed(newFeed);
                     }
 
                     @Override

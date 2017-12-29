@@ -6,17 +6,19 @@
         android:id="@+id/list_article_activity_menu_action_refresh"
         android:icon="@drawable/ic_refresh"
         android:title="@string/list_article_activity_menu_refresh"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/list_article_activity_menu_action_list"
         android:icon="@drawable/ic_list"
         android:title="@string/list_article_activity_menu_list"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
+    <!--
     <item
         android:id="@+id/list_article_activity_menu_action_settings"
         android:title="@string/list_article_activity_menu_settings"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
+    -->
 
 </menu>

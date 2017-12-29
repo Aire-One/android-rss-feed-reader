@@ -50,4 +50,14 @@ public class FeedSourceSingleton {
         mFeeds.add(feed);
         writeFeed();
     }
+
+    public void removeFeed(String feed) {
+        mFeeds.remove(feed);
+        writeFeed();
+    }
+
+    public void clearFeeds() {
+        mFeeds.clear();
+        writeFeed();
+    }
 }

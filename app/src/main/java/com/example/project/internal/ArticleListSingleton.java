@@ -1,5 +1,7 @@
 package com.example.project.internal;
 
+import android.util.Log;
+
 import com.example.project.logics.dataTypes.Article;
 
 import java.util.ArrayList;
@@ -40,7 +42,15 @@ public class ArticleListSingleton {
         notifyUpdate();
     }
 
-    public void addArticles(List<Article> articles) {
+    public synchronized void addArticles(List<Article> articles) {
+        if (articles == null) {
+            Log.d("AddArticle", "Addition articles list is null");
+            return;
+        }
+
+        Log.d("AddArticle", "current list: " + mArticles.toString());
+        Log.d("AddArticle", "addition list: " + articles.toString());
+
         mArticles.addAll(articles);
         notifyUpdate();
     }

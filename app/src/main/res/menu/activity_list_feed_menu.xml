@@ -1,0 +1,11 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/list_feed_activity_menu_action_add"
+        android:icon="@drawable/ic_add"
+        android:title="@string/list_feed_activity_menu_add"
+        app:showAsAction="ifRoom"/>
+
+</menu>

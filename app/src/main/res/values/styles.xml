@@ -7,11 +7,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- ImageButtons in ListArticle Fragment from ListArticleActivity -->
     <style name="list_article_button_style" parent="@style/Widget.AppCompat.ImageButton">
         <item name="android:layout_width">@dimen/list_article_fragment_button_size</item>
         <item name="android:layout_height">@dimen/list_article_fragment_button_size</item>
         <item name="android:background">#00000000</item>
         <item name="android:tint">@android:color/darker_gray</item>
+    </style>
+
+    <!-- ImageButton for delete action in ListFeed Activity -->
+    <style name="list_feed_button_delete_style" parent="@style/Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">@dimen/list_feed_delete_button_size</item>
+        <item name="android:layout_height">@dimen/list_feed_delete_button_size</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:tint">@android:color/black</item>
     </style>
 
     <!-- ToolBar -->

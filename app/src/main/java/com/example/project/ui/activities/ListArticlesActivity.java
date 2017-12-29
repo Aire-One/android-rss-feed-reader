@@ -1,5 +1,6 @@
 package com.example.project.ui.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,13 +27,7 @@ public class ListArticlesActivity extends AppCompatActivity implements IArticleL
         mToolbar = findViewById(R.id.activity_list_article_toolbar);
         setSupportActionBar(mToolbar);
 
-
-        FeedSourceSingleton feeds = FeedSourceSingleton.getInstance(this);
-        feeds.addFeed("https://www.xda-developers.com/feed/");
-        Log.d("Feeds", "size: " + feeds.getFeeds().size()
-                + " ; contents: " + feeds.getFeeds().toString());
-
-
+        addFeeds();
     }
 
     @Override
@@ -52,13 +47,26 @@ public class ListArticlesActivity extends AppCompatActivity implements IArticleL
             case R.id.list_article_activity_menu_action_settings:
                 return true;
             case R.id.list_article_activity_menu_action_refresh:
-                ///TODO: call refresh worker
                 new RSSFeedWorker().execute(this);
-
+                return true;
+            case R.id.list_article_activity_menu_action_list:
+                Intent intent = new Intent(this, ListFeedActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    protected void addFeeds() {
+        FeedSourceSingleton feeds = FeedSourceSingleton.getInstance(this);
+        feeds.clearFeeds();
+        feeds.addFeed("https://www.xda-developers.com/feed/");
+        feeds.addFeed("https://www.blog.google/rss/");
+
+        Log.d("Feeds", "size: " + feeds.getFeeds().size()
+                + " ; contents: " + feeds.getFeeds().toString());
+
     }
 }

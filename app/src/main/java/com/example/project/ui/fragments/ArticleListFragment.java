@@ -62,6 +62,7 @@ public class ArticleListFragment extends Fragment {
 
         mContext = view.getContext();
 
+        /// TODO: fix the non-sense crash with custom recyclerview
         //RecyclerViewWithSeparator recyclerView = (RecyclerViewWithSeparator) view;
         //recyclerView.setAdapter(new ArticleListFragmentViewAdapter(DummyContent.ITEMS, mListener));
 
@@ -75,26 +76,7 @@ public class ArticleListFragment extends Fragment {
             mAdapter = new ArticleListFragmentViewAdapter(ArticleListSingleton.getInstance().getArticles(), mListener);
         }
         recyclerView.setAdapter(mAdapter);
-/*
-        Request req = new StringRequest(Request.Method.GET, "https://www.xda-developers.com/feed/", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                RSSFeedParser parser = new RSSFeedParser(new IRSSFeedParserListener() {
-                    @Override
-                    public void onParseFinished(List<Article> articles) {
-                        ArticleListSingleton.getInstance().addArticles(articles);
-                    }
-                });
-                parser.execute(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("request", error.getLocalizedMessage());
-            }
-        });
-        RSSFeedPullerSingleton.getInstance(mContext).addToRequestQueue(req);
-*/
+
         // add a listener to ArticleListSingleton to auto update the list on changes
         ArticleListSingleton.getInstance().addHook(mArticleListHook);
 

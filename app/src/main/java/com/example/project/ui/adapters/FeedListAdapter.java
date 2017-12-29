@@ -8,27 +8,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.project.internal.FeedSourceSingleton;
+import com.example.project.ui.contracts.IFeedListAdapterListener;
+import com.example.project.ui.contracts.IListFeedViewHolderListener;
 import com.example.project.ui.views.ListFeedViewHolder;
 
-public class FeedListAdapter extends BaseAdapter {
+import java.util.List;
 
-    private final FeedSourceSingleton feeds;
+public class FeedListAdapter extends BaseAdapter implements IListFeedViewHolderListener {
 
-    private Context mContext;
+    private List<String> mList;
 
-    public FeedListAdapter(Context context) {
+    private final Context mContext;
+
+    private IFeedListAdapterListener mListener;
+
+    public FeedListAdapter(Context context, List<String> list, IFeedListAdapterListener listener) {
         mContext = context;
-        feeds = FeedSourceSingleton.getInstance(mContext);
+        mList = list;
+        mListener = listener;
     }
 
     @Override
     public int getCount() {
-        return feeds.getFeeds().size();
+        return mList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return feeds.getFeeds().toArray()[i];
+        return mList.get(i);
     }
 
     @Override
@@ -38,7 +45,16 @@ public class FeedListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return new ListFeedViewHolder(mContext, feeds.getFeeds().toArray()[i].toString()).getView();
+        return new ListFeedViewHolder(mContext, mList.get(i).toString(), this).getView();
     }
 
+    public void updateList(List<String> list) {
+        mList = list;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDeleteButtonClicked(String item) {
+        mListener.onDeleteButtonClicked(item);
+    }
 }

@@ -29,7 +29,7 @@ public class RSSFeedWorker extends AsyncTask<Context, Void, Void> {
 
         FeedSourceSingleton feeds = FeedSourceSingleton.getInstance(context);
 
-        for (String url : feeds.getFeeds()) {
+        for (String url : feeds.getFeedsSet()) {
             Request req = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

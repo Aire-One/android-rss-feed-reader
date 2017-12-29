@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.project.R;
+import com.example.project.ui.contracts.IListFeedViewHolderListener;
 
 
 public class ListFeedViewHolder {
@@ -20,9 +21,12 @@ public class ListFeedViewHolder {
     private TextView mTextViewFeedName;
     private ImageButton mButtonDelete;
 
-    public ListFeedViewHolder(Context context, String name) {
+    private IListFeedViewHolderListener mListener;
+
+    public ListFeedViewHolder(Context context, String name, IListFeedViewHolderListener listener) {
         mContext = context;
         mName = name;
+        mListener = listener;
 
         buildView();
     }
@@ -40,6 +44,13 @@ public class ListFeedViewHolder {
 
         mTextViewFeedName = mView.findViewById(R.id.list_feed_viewholder_name_textView);
         mButtonDelete = mView.findViewById(R.id.list_feed_viewholder_delete_button);
+
+        mButtonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onDeleteButtonClicked(mName);
+            }
+        });
 
         mTextViewFeedName.setText(mName);
     }

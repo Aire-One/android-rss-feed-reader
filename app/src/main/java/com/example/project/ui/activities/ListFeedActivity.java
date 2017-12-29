@@ -21,9 +21,10 @@ import com.example.project.internal.FeedSourceSingleton;
 import com.example.project.logics.core.RSSFeedWorker;
 import com.example.project.ui.adapters.FeedListAdapter;
 import com.example.project.ui.contracts.IAddFeedSourceDialogListener;
+import com.example.project.ui.contracts.IFeedListAdapterListener;
 import com.example.project.ui.dialog.AddFeedSourceDialog;
 
-public class ListFeedActivity extends AppCompatActivity {
+public class ListFeedActivity extends AppCompatActivity implements IFeedListAdapterListener {
 
     public final static String DIALOG_ADD_FEED_SOURCE_TAG = "LIST_FEED_ACTIVITY_DIALOG_ADD_FEED";
 
@@ -43,7 +44,7 @@ public class ListFeedActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         mListView = findViewById(R.id.activity_feed_list_listview);
-        mAdapter = new FeedListAdapter(this);
+        mAdapter = new FeedListAdapter(this, FEEDS.getFeedsList(), this);
         mListView.setAdapter(mAdapter);
     }
 
@@ -64,6 +65,7 @@ public class ListFeedActivity extends AppCompatActivity {
                     @Override
                     public void onPositiveClick(String newFeed) {
                         FEEDS.addFeed(newFeed);
+                        mAdapter.updateList(FEEDS.getFeedsList());
                     }
 
                     @Override
@@ -76,5 +78,11 @@ public class ListFeedActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onDeleteButtonClicked(String item) {
+        FEEDS.removeFeed(item);
+        mAdapter.updateList(FEEDS.getFeedsList());
     }
 }

@@ -126,9 +126,11 @@ public class ListArticlesActivity extends AppCompatActivity implements IArticleL
 
     protected void addFeeds() {
         FeedSourceSingleton feeds = FeedSourceSingleton.getInstance(this);
-        feeds.clearFeeds();
-        feeds.addFeed("https://www.xda-developers.com/feed/");
-        feeds.addFeed("https://www.archlinux.org/feeds/news/");
-        //feeds.addFeed("http://turnoff.us/feed.xml");
+        if (feeds.isEmpty()) {
+            feeds.addFeed("https://www.xda-developers.com/feed/");
+            feeds.addFeed("https://www.archlinux.org/feeds/news/");
+            //feeds.addFeed("http://turnoff.us/feed.xml");
+        }
+        Log.d("feed list", feeds.getFeedsList().toString());
     }
 }

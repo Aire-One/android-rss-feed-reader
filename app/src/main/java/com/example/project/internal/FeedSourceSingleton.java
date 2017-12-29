@@ -3,7 +3,10 @@ package com.example.project.internal;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class FeedSourceSingleton {
@@ -42,9 +45,11 @@ public class FeedSourceSingleton {
         mSharedPreferences.edit().putStringSet(PREFS_FEEDS, mFeeds).commit();
     }
 
-    public Set<String> getFeeds() {
-        return mFeeds;
+    public Set<String> getFeedsSet() {
+        return Collections.unmodifiableSet(mFeeds);
     }
+
+    public List<String> getFeedsList() { return Collections.unmodifiableList(new ArrayList<String>(mFeeds)); }
 
     public void addFeed(String feed) {
         mFeeds.add(feed);
@@ -59,5 +64,9 @@ public class FeedSourceSingleton {
     public void clearFeeds() {
         mFeeds.clear();
         writeFeed();
+    }
+
+    public boolean isEmpty() {
+        return mFeeds.isEmpty();
     }
 }
